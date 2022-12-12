@@ -1,6 +1,6 @@
 package main.java.by.bsuir.remotearchive.server;
 
-import main.java.by.bsuir.remotearchive.server.service.multithreading.Worker;
+import main.java.by.bsuir.remotearchive.server.multithreading.Worker;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package main.java.by.bsuir.remotearchive.server.service.multithreading;
+package main.java.by.bsuir.remotearchive.server.multithreading;
 
 import main.java.by.bsuir.remotearchive.server.controller.Controller;
 

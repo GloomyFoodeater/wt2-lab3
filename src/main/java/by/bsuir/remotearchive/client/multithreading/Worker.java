@@ -1,4 +1,4 @@
-package main.java.by.bsuir.remotearchive.client.service.multithreading;
+package main.java.by.bsuir.remotearchive.client.multithreading;
 
 import java.io.IOException;
 import java.io.InputStream;
