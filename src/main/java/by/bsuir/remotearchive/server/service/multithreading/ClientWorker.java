@@ -1,5 +1,7 @@
 package main.java.by.bsuir.remotearchive.server.service.multithreading;
 
+import main.java.by.bsuir.remotearchive.server.controller.Controller;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,7 +23,13 @@ public class ClientWorker extends Thread {
 
     @Override
     public void run() {
-        String helpMessage = "Available commands: " +
+        String helpMessage;
+        Controller controller;
+        String request;
+        String response;
+
+        // Send help message
+        helpMessage = "Available commands: " +
                 "AUTH <USER>|<ADMIN>, " +
                 "DISCONNECT, " +
                 "VIEW, " +
@@ -29,5 +37,20 @@ public class ClientWorker extends Thread {
                 "EDIT <id> <firstName> <lastName>";
         socketWriter.println(helpMessage);
         logger.println("Send help message to %s:%d".formatted(socket.getInetAddress(), socket.getPort()));
+
+        controller = Controller.getInstance();
+        try {
+            while (true) {
+                request = socketReader.readLine();
+                try {
+                    response = controller.executeTask(this, request);
+                    socketWriter.println(response);
+                } catch (IllegalArgumentException e) {
+                    socketWriter.println(e.getMessage());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
