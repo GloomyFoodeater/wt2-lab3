@@ -34,7 +34,7 @@ public class ClientWorker extends Thread {
                 "AUTH GUEST|USER|ADMIN, " +
                 "DISCONNECT, " +
                 "VIEW, " +
-                "CREATE <firstName> <lastName>, " +
+                "CREATE <firstName> <lastName> <patronymic> <group>, " +
                 "EDIT <id> <firstName> <lastName>";
         socketWriter.println(helpMessage);
         logger.println("Send help message to %s:%d".formatted(socket.getInetAddress(), socket.getPort()));

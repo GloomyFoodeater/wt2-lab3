@@ -1,21 +1,27 @@
 package main.java.by.bsuir.remotearchive.server.entity;
 
 public class StudentInfo {
-    private static int counter = 0;
-
-    public StudentInfo() {
-        id = counter;
-        counter++;
-    }
-
-    private final int id;
+    private int id;
     private String firstName;
     private String lastName;
     private String patronymic;
     private int group;
 
+
+    public StudentInfo(int id, String firstName, String lastName, String patronymic, int group) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.patronymic = patronymic;
+        this.group = group;
+    }
+
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {

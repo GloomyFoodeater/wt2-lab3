@@ -3,36 +3,50 @@
     <StudentInfo>
         <id>0</id>
         <firstName>Иванов</firstName>
-        <secondName>Иван</secondName>
+        <lastName>Иван</lastName>
         <patronymic>Иванович</patronymic>
-        <group>051001</group>
+        <group>51001</group>
     </StudentInfo>
     <StudentInfo>
         <id>1</id>
         <firstName>Петров</firstName>
-        <secondName>Петр</secondName>
+        <lastName>Петр</lastName>
         <patronymic>Петрович</patronymic>
         <group>151002</group>
     </StudentInfo>
     <StudentInfo>
         <id>2</id>
         <firstName>Петров</firstName>
-        <secondName>Фёдров</secondName>
+        <lastName>Фёдров</lastName>
         <patronymic>Вячеславович</patronymic>
         <group>911002</group>
     </StudentInfo>
     <StudentInfo>
         <id>3</id>
         <firstName>Человеков</firstName>
-        <secondName>Человек</secondName>
+        <lastName>Человек</lastName>
         <patronymic>Человекович</patronymic>
         <group>421362</group>
     </StudentInfo>
     <StudentInfo>
         <id>4</id>
         <firstName>Кто-тов</firstName>
-        <secondName>Кто-то</secondName>
+        <lastName>Кто-то</lastName>
         <patronymic>Кто-тович</patronymic>
         <group>123456</group>
+    </StudentInfo>
+    <StudentInfo>
+        <id>5</id>
+        <firstName>Павловец</firstName>
+        <lastName>Сергей</lastName>
+        <patronymic>Валерьевич</patronymic>
+        <group>51006</group>
+    </StudentInfo>
+    <StudentInfo>
+        <id>6</id>
+        <firstName>Фечеслав</firstName>
+        <lastName>Корослав</lastName>
+        <patronymic>Магованович</patronymic>
+        <group>66666</group>
     </StudentInfo>
 </Students>
