@@ -30,7 +30,7 @@ public class ClientWorker extends Thread {
 
         // Send help message
         helpMessage = "Available commands: " +
-                "AUTH <USER>|<ADMIN>, " +
+                "AUTH GUEST|USER|ADMIN, " +
                 "DISCONNECT, " +
                 "VIEW, " +
                 "CREATE <firstName> <lastName>, " +

@@ -22,8 +22,8 @@ public class AuthenticateServiceImpl implements AuthenticateService {
     public GuestRole getGuestRole(Object user) {
         GuestRole result;
         if (!users.containsKey(user)) {
-            users.put(user, GuestRole.UNAUTHORIZED);
-            result = GuestRole.UNAUTHORIZED;
+            users.put(user, GuestRole.GUEST);
+            result = GuestRole.GUEST;
         } else {
             result = users.get(user);
         }
