@@ -9,7 +9,7 @@ public class RunnableSocketReadingLoop implements Runnable {
 
     public RunnableSocketReadingLoop(Socket socket, OutputStream outputStream) throws IOException {
         socketReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        responseWriter = new PrintWriter(outputStream);
+        responseWriter = new PrintWriter(outputStream, true);
     }
 
     @Override
