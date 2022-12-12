@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ClientWorker extends Thread {
+
     private final Socket socket;
     private final PrintWriter logger;
     private final PrintWriter socketWriter;
@@ -40,15 +41,31 @@ public class ClientWorker extends Thread {
 
         controller = Controller.getInstance();
         try {
-            while (true) {
+            while (!socket.isClosed()) {
+
+                // Request
                 request = socketReader.readLine();
+                logger.println("From %s:%d: %s".formatted(socket.getInetAddress(), socket.getPort(), request));
+
+                // Response
                 try {
                     response = controller.executeTask(this, request);
-                    socketWriter.println(response);
                 } catch (IllegalArgumentException e) {
-                    socketWriter.println(e.getMessage());
+                    response = e.getMessage();
                 }
+                // Disconnect request
+                if (!socket.isClosed())
+                    socketWriter.println(response);
+                logger.println("To %s:%d: %s".formatted(socket.getInetAddress(), socket.getPort(), response));
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void disconnect() {
+        try {
+            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

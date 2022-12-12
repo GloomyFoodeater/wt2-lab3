@@ -14,15 +14,14 @@ public class RunnableSocketReadingLoop implements Runnable {
 
     @Override
     public void run() {
-        String response;
+        String response = "";
 
         try {
-            // Read until exception when socket is closed
-            while (true) {
+            do {
+                responseWriter.println(response);
                 response = socketReader.readLine();
-                if (response != null)
-                    responseWriter.println(response);
-            }
+            } while (response != null);
+
         } catch (IOException e) {
             // Ignore
         }
