@@ -5,11 +5,9 @@ import java.net.Socket;
 
 public class RunnableSocketReadingLoop implements Runnable {
     private final BufferedReader socketReader;
-    private final Socket socket;
     private final PrintWriter responseWriter;
 
     public RunnableSocketReadingLoop(Socket socket, OutputStream outputStream) throws IOException {
-        this.socket = socket;
         socketReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         responseWriter = new PrintWriter(outputStream);
     }
@@ -19,7 +17,8 @@ public class RunnableSocketReadingLoop implements Runnable {
         String response;
 
         try {
-            while (!socket.isInputShutdown()) {
+            // Read until exception when socket is closed
+            while (true) {
                 response = socketReader.readLine();
                 if (response != null)
                     responseWriter.println(response);

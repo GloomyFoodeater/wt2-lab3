@@ -43,7 +43,7 @@ public class Worker extends Thread {
             socketWritingLoop.run();
 
             // Shutdown to stop writing and reading
-            socket.shutdownOutput();
+            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
