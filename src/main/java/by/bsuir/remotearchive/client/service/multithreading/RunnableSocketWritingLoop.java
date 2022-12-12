@@ -9,24 +9,20 @@ public class RunnableSocketWritingLoop implements Runnable {
     private final BufferedReader requestReader;
 
     public RunnableSocketWritingLoop(Socket socket, InputStream inputStream) throws IOException {
-        socketWriter = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+        socketWriter = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
         requestReader = new BufferedReader(new InputStreamReader(inputStream));
     }
 
     @Override
     public void run() {
         String request;
-
-        do {
-            try {
+        try {
+            do {
                 request = requestReader.readLine();
                 socketWriter.println(request);
-                socketWriter.flush();
-            } catch (IOException e) {
-
-                // Forcefully quit
-                request = "quit";
-            }
-        } while (!request.equals("quit"));
+            } while (true);
+        } catch (IOException e) {
+            // Ignore
+        }
     }
 }
