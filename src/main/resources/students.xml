@@ -2,10 +2,10 @@
 <Students>
     <StudentInfo>
         <id>0</id>
-        <firstName>Иван</firstName>
-        <lastName>Иванов</lastName>
+        <firstName>Иванововый</firstName>
+        <lastName>Иван</lastName>
         <patronymic>Иванович</patronymic>
-        <group>51001</group>
+        <group>51006</group>
     </StudentInfo>
     <StudentInfo>
         <id>1</id>

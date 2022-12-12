@@ -3,6 +3,9 @@ package main.java.by.bsuir.remotearchive.client.multithreading;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * Runnable loop that reads data from given stream and prints it to socket
+ */
 public class RunnableSocketWritingLoop implements Runnable {
 
     private final PrintWriter socketWriter;
@@ -17,10 +20,10 @@ public class RunnableSocketWritingLoop implements Runnable {
     public void run() {
         String request;
         try {
-            do {
+            while (true) {
                 request = requestReader.readLine();
                 socketWriter.println(request);
-            } while (true);
+            }
         } catch (IOException e) {
             // Ignore
         }
