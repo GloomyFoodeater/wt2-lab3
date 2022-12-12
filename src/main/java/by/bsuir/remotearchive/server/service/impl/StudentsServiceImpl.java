@@ -23,7 +23,18 @@ public class StudentsServiceImpl implements StudentsService {
     }
 
     @Override
+    public void editInfo(int id, String firstName, String lastName, String patronymic, int group) {
+        DAOFactory.getInstance().getStudentsDAO().setById(id, new StudentInfo(id, firstName, lastName, patronymic, group));
+    }
+
+
+    @Override
     public List<StudentInfo> getAll() {
         return DAOFactory.getInstance().getStudentsDAO().getAll();
+    }
+
+    @Override
+    public boolean contains(int id) {
+        return DAOFactory.getInstance().getStudentsDAO().contains(id);
     }
 }
