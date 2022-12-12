@@ -11,7 +11,7 @@ public class StudentInfo {
     private final int id;
     private String firstName;
     private String lastName;
-    private String thirdName;
+    private String patronymic;
     private int group;
 
     public int getId() {
@@ -34,12 +34,12 @@ public class StudentInfo {
         this.lastName = lastName;
     }
 
-    public String getThirdName() {
-        return thirdName;
+    public String getPatronymic() {
+        return patronymic;
     }
 
-    public void setThirdName(String thirdName) {
-        this.thirdName = thirdName;
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
     }
 
     public int getGroup() {
