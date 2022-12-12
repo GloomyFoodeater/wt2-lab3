@@ -9,32 +9,45 @@ public class Edit implements Command {
 
     @Override
     public String execute(Object caller, String request) {
-        var arguments = request.split(" ");
-        if (arguments.length != argumentsCount) {
-            throw new IllegalArgumentException(String.format("EDIT command should contain %d argument(s)", argumentsCount));
-        }
+        String[] arguments;
+        int group;
+        int id;
 
+        // Role validation
         if (ServiceFactory.getInstance().getAuthenticateService().getGuestRole(caller) != GuestRole.ADMIN) {
             return "You must be admin to execute this command";
         }
 
-        int id;
+        // Arguments validation
+        arguments = request.split(" ");
+        if (arguments.length != argumentsCount) {
+            return "EDIT command should contain %d arguments".formatted(argumentsCount - 1);
+        }
         try {
             id = Integer.parseInt(arguments[1]);
+            if (id < 0)
+                return "Id must be non-negative integer";
         } catch (NumberFormatException e) {
-            return "Invalid id";
+            return "Id must be non-negative integer";
+        }
+        try {
+            group = Integer.parseInt(arguments[5]);
+            if (group <= 0)
+                return "Group must be positive integer";
+        } catch (NumberFormatException e) {
+            return "Group must be positive integer";
         }
 
+        // Request execution
         if (!ServiceFactory.getInstance().getStudentsService().contains(id)) {
             return "No info found to edit";
         }
-
         ServiceFactory.getInstance().getStudentsService().editInfo(
                 id,
-                arguments[2],
                 arguments[3],
+                arguments[2],
                 arguments[4],
-                Integer.parseInt(arguments[5]));
+                group);
         return "%s was successful!".formatted(request);
     }
 }

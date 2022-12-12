@@ -13,15 +13,18 @@ public class Authenticate implements Command {
         String[] arguments;
         GuestRole role;
 
+        // Arguments validation
         arguments = request.split(" ");
         if (arguments.length != argumentsCount) {
-            throw new IllegalArgumentException(String.format("AUTH command should contain %d argument(s)", argumentsCount));
+            return "AUTH command should contain %d arguments".formatted(argumentsCount - 1);
         }
         try {
             role = GuestRole.valueOf(arguments[1].toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Role was invalid");
+            return "Role was invalid";
         }
+
+        // Request execution
         ServiceFactory.getInstance().getAuthenticateService().setGuestRole(caller, role);
 
         return "Authorized as %s".formatted(arguments[1].toUpperCase());

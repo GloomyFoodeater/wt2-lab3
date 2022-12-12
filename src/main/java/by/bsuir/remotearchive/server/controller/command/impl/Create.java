@@ -9,23 +9,32 @@ public class Create implements Command {
 
     @Override
     public String execute(Object caller, String request) {
-        var arguments = request.split(" ");
-        if (arguments.length != argumentsCount) {
-            throw new IllegalArgumentException(String.format("CREATE command should contain %d argument(s)", argumentsCount));
-        }
+        String[] arguments;
+        int group;
 
+        // Role validation
         if (ServiceFactory.getInstance().getAuthenticateService().getGuestRole(caller) != GuestRole.ADMIN) {
             return "You must be admin to execute this";
         }
-        try {
-            ServiceFactory.getInstance().getStudentsService().appendInfo(
-                    arguments[2],
-                    arguments[1],
-                    arguments[3],
-                    Integer.parseInt(arguments[4]));
-        } catch (Exception e) {
-            throw new IllegalArgumentException("CREATE command failed with given arguments");
+
+        // Arguments validation
+        arguments = request.split(" ");
+        if (arguments.length != argumentsCount) {
+            return "CREATE command should contain %d arguments".formatted(argumentsCount - 1);
         }
+        try {
+            group = Integer.parseInt(arguments[4]);
+            if (group <= 0)
+                return "Group must be positive integer";
+        } catch (NumberFormatException e) {
+            return "Group must be positive integer";
+        }
+
+        ServiceFactory.getInstance().getStudentsService().appendInfo(
+                arguments[2],
+                arguments[1],
+                arguments[3],
+                group);
         return request + " was successful";
     }
 }
