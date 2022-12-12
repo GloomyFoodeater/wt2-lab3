@@ -22,16 +22,13 @@ public class Worker extends Thread {
 
         // Start listening
         try (var listenSocket = new ServerSocket(PORT, BACKLOG, null)) {
-            logger.println("Start listening on port %d".formatted(PORT));
+            logger.println("LISTEN on %s:%d".formatted(listenSocket.getInetAddress(), PORT));
 
             // Handle clients
             while (true) {
                 try {
                     // Accept connection
                     clientSocket = listenSocket.accept();
-                    logger.println("New connection: %s:%d".formatted(
-                            clientSocket.getInetAddress(),
-                            clientSocket.getPort()));
 
                     // Handle connection in another thread
                     clientWorker = new ClientWorker(clientSocket, logger);

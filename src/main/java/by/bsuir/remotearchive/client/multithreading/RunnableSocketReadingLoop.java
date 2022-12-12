@@ -21,8 +21,8 @@ public class RunnableSocketReadingLoop implements Runnable {
 
         try {
             while (response != null) {
-                response = socketReader.readLine();
                 responseWriter.println(response);
+                response = socketReader.readLine();
             }
         } catch (IOException e) {
             // Ignore

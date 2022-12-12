@@ -19,7 +19,7 @@ public class CommandProvider {
             case "CREATE" -> new Create();
             case "EDIT" -> new Edit();
             case "VIEW" -> new View();
-            default -> throw new IllegalArgumentException("Unexpected value: " + name);
+            default -> throw new IllegalArgumentException("Unexpected value: '%s'".formatted(name));
         };
     }
 }

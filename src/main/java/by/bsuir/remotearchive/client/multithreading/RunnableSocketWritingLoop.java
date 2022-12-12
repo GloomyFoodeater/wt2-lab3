@@ -9,9 +9,11 @@ import java.net.Socket;
 public class RunnableSocketWritingLoop implements Runnable {
 
     private final PrintWriter socketWriter;
+    private final Socket socket;
     private final BufferedReader requestReader;
 
     public RunnableSocketWritingLoop(Socket socket, InputStream inputStream) throws IOException {
+        this.socket = socket;
         socketWriter = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
         requestReader = new BufferedReader(new InputStreamReader(inputStream));
     }
@@ -20,7 +22,7 @@ public class RunnableSocketWritingLoop implements Runnable {
     public void run() {
         String request;
         try {
-            while (true) {
+            while (!socket.isClosed()) {
                 request = requestReader.readLine();
                 socketWriter.println(request);
             }

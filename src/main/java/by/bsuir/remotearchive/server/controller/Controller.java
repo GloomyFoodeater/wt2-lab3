@@ -21,15 +21,16 @@ public class Controller {
         CommandProvider commandProvider;
         int delimiterPos;
 
-        // Get command by request
+        // Prepare to get command
         delimiterPos = request.indexOf(' ');
         if (delimiterPos == -1) delimiterPos = request.length();
         commandName = request.substring(0, delimiterPos);
         commandProvider = CommandProvider.getInstance();
-        executionCommand = commandProvider.getCommand(commandName);
 
-        // Execute command and return response
+        // Get and execute command
+        executionCommand = commandProvider.getCommand(commandName);
         response = executionCommand.execute(caller, request);
+
         return response;
     }
 }

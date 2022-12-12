@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class ClientWorker extends Thread {
 
@@ -15,8 +16,14 @@ public class ClientWorker extends Thread {
     private final PrintWriter socketWriter;
     private final BufferedReader socketReader;
 
+    private final String addr;
+
+    private final int port;
+
     public ClientWorker(Socket socket, PrintWriter logger) throws IOException {
         this.socket = socket;
+        addr = socket.getInetAddress().toString();
+        port = socket.getPort();
         this.logger = logger;
         this.socketReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         this.socketWriter = new PrintWriter(socket.getOutputStream(), true);
@@ -27,16 +34,20 @@ public class ClientWorker extends Thread {
         Controller controller;
         String request;
         String response;
+        boolean forcefullyDisconnect = false;
+
+        logger.println("CONNECT to %s:%d".formatted(addr, port));
 
         // Send help message
-        response = "Available commands: " +
-                "AUTH GUEST|USER|ADMIN, " +
-                "DISCONNECT, " +
-                "VIEW, " +
-                "CREATE <lastName> <firstName> <patronymic> <group>, " +
-                "EDIT <id> <firstName> <lastName>";
-        socketWriter.println(response);
-        logger.println("To %s:%d: %s".formatted(socket.getInetAddress(), socket.getPort(), response));
+        socketWriter.println("""
+                Available commands:\s
+                \tAUTH GUEST|USER|ADMIN
+                \tDISCONNECT
+                \tVIEW
+                \tCREATE <lastName> <firstName> <patronymic> <group>
+                \tEDIT <id> <firstName> <lastName>
+                """);
+        logger.println("HELP to %s:%d".formatted(addr, port));
 
         controller = Controller.getInstance();
         try {
@@ -44,22 +55,28 @@ public class ClientWorker extends Thread {
 
                 // Request
                 request = socketReader.readLine();
-                logger.println("From %s:%d:\n %s".formatted(socket.getInetAddress(), socket.getPort(), request));
+                logger.println("RECEIVE from %s:%d:\n %s".formatted(addr, port, request));
 
                 // Response
                 try {
                     response = controller.executeTask(this, request);
+
+                    //If for disconnect request
+                    if (!socket.isClosed()) {
+                        socketWriter.println(response);
+                        logger.println("SEND to %s:%d:\n %s".formatted(addr, port, response));
+                    }
                 } catch (IllegalArgumentException e) {
-                    response = e.getMessage();
+                    logger.println("INVALID from %s:%d:\n %s".formatted(addr, port, e.getMessage()));
                 }
-                // Disconnect request
-                if (!socket.isClosed())
-                    socketWriter.println(response);
-                logger.println("To %s:%d:\n %s".formatted(socket.getInetAddress(), socket.getPort(), response));
             }
+        } catch (SocketException e) {
+            forcefullyDisconnect = true;
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        logger.println("DISCONNECT%s from %s:%d".formatted(forcefullyDisconnect ? " forcefully" : "", addr, port));
     }
 
     public void disconnect() {

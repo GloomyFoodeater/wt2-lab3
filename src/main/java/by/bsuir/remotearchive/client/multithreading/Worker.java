@@ -27,7 +27,7 @@ public class Worker extends Thread {
         Socket socket;
         Runnable socketWritingLoop;
         Runnable socketReadingLoop;
-        Thread socketReadingThread;
+        Thread socketWritingThread;
 
         try {
             // Connect to server
@@ -38,9 +38,9 @@ public class Worker extends Thread {
             socketReadingLoop = new RunnableSocketReadingLoop(socket, outputStream);
 
             // Start tasks in separate threads
-            socketReadingThread = new Thread(socketReadingLoop);
-            socketReadingThread.start();
-            socketWritingLoop.run();
+            socketWritingThread = new Thread(socketWritingLoop);
+            socketWritingThread.start();
+            socketReadingLoop.run();
 
             // Shutdown to stop writing and reading
             socket.close();
