@@ -2,43 +2,43 @@
 <Students>
     <StudentInfo>
         <id>0</id>
-        <firstName>Иванов</firstName>
-        <lastName>Иван</lastName>
+        <firstName>Иван</firstName>
+        <lastName>Иванов</lastName>
         <patronymic>Иванович</patronymic>
         <group>51001</group>
     </StudentInfo>
     <StudentInfo>
         <id>1</id>
-        <firstName>Петров</firstName>
-        <lastName>Петр</lastName>
+        <firstName>Петр</firstName>
+        <lastName>Петров</lastName>
         <patronymic>Петрович</patronymic>
         <group>151002</group>
     </StudentInfo>
     <StudentInfo>
         <id>2</id>
-        <firstName>Петров</firstName>
-        <lastName>Фёдров</lastName>
+        <firstName>Петр</firstName>
+        <lastName>Фёдор</lastName>
         <patronymic>Вячеславович</patronymic>
         <group>911002</group>
     </StudentInfo>
     <StudentInfo>
         <id>3</id>
-        <firstName>Человеков</firstName>
-        <lastName>Человек</lastName>
+        <firstName>Человек</firstName>
+        <lastName>Человеков</lastName>
         <patronymic>Человекович</patronymic>
         <group>421362</group>
     </StudentInfo>
     <StudentInfo>
         <id>4</id>
-        <firstName>Кто-тов</firstName>
-        <lastName>Кто-то</lastName>
+        <firstName>Кто-то</firstName>
+        <lastName>Кто-тов</lastName>
         <patronymic>Кто-тович</patronymic>
         <group>123456</group>
     </StudentInfo>
     <StudentInfo>
         <id>5</id>
-        <firstName>Павловец</firstName>
-        <lastName>Сергей</lastName>
+        <firstName>Сергей</firstName>
+        <lastName>Павловец</lastName>
         <patronymic>Валерьевич</patronymic>
         <group>51006</group>
     </StudentInfo>
@@ -48,5 +48,12 @@
         <lastName>Корослав</lastName>
         <patronymic>Магованович</patronymic>
         <group>66666</group>
+    </StudentInfo>
+    <StudentInfo>
+        <id>7</id>
+        <firstName>Иаким</firstName>
+        <lastName>Иаакимов</lastName>
+        <patronymic>Иакимович</patronymic>
+        <group>51008</group>
     </StudentInfo>
 </Students>

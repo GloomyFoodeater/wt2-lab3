@@ -24,20 +24,19 @@ public class ClientWorker extends Thread {
 
     @Override
     public void run() {
-        String helpMessage;
         Controller controller;
         String request;
         String response;
 
         // Send help message
-        helpMessage = "Available commands: " +
+        response = "Available commands: " +
                 "AUTH GUEST|USER|ADMIN, " +
                 "DISCONNECT, " +
                 "VIEW, " +
-                "CREATE <firstName> <lastName> <patronymic> <group>, " +
+                "CREATE <lastName> <firstName> <patronymic> <group>, " +
                 "EDIT <id> <firstName> <lastName>";
-        socketWriter.println(helpMessage);
-        logger.println("Send help message to %s:%d".formatted(socket.getInetAddress(), socket.getPort()));
+        socketWriter.println(response);
+        logger.println("To %s:%d: %s".formatted(socket.getInetAddress(), socket.getPort(), response));
 
         controller = Controller.getInstance();
         try {
@@ -45,7 +44,7 @@ public class ClientWorker extends Thread {
 
                 // Request
                 request = socketReader.readLine();
-                logger.println("From %s:%d: %s".formatted(socket.getInetAddress(), socket.getPort(), request));
+                logger.println("From %s:%d:\n %s".formatted(socket.getInetAddress(), socket.getPort(), request));
 
                 // Response
                 try {
@@ -56,7 +55,7 @@ public class ClientWorker extends Thread {
                 // Disconnect request
                 if (!socket.isClosed())
                     socketWriter.println(response);
-                logger.println("To %s:%d: %s".formatted(socket.getInetAddress(), socket.getPort(), response));
+                logger.println("To %s:%d:\n %s".formatted(socket.getInetAddress(), socket.getPort(), response));
             }
         } catch (IOException e) {
             e.printStackTrace();

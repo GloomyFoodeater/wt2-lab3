@@ -12,7 +12,7 @@ public class DAOFactory {
         return instance;
     }
 
-    public StudentInfoDAO getCaseDAO() {
+    public StudentInfoDAO getStudentsDAO() {
         return StudentInfoDAOImpl.getInstance();
     }
 

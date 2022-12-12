@@ -19,8 +19,8 @@ public class Create implements Command {
         }
         try {
             ServiceFactory.getInstance().getStudentsService().appendInfo(
-                    arguments[1],
                     arguments[2],
+                    arguments[1],
                     arguments[3],
                     Integer.parseInt(arguments[4]));
         } catch (Exception e) {
